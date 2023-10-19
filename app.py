@@ -5,6 +5,7 @@ import dash_bootstrap_components as dbc
 app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.SPACELAB], meta_tags=[
     {"name": "viewport", "content": "width=device-width, initial-scale=1"}
 ], )
+server = app.server
 
 #Sección de hyperlinks para cada pagina
 leNav = dbc.Nav([
