@@ -76,7 +76,7 @@ layout = html.Div(children=[
     Input('orden-temp', 'value'))
 def update_map_header(selected_temp):
     if selected_temp == "Todo":
-        return "Todos los casos"
+        return "TODOS los casos"
     else:
         return ("Casos por " + selected_temp)
 
