@@ -28,7 +28,7 @@ leNavbar = dbc.Navbar(
                     width="auto", align="center"
                 ),
                 dbc.Col([
-                    dbc.NavbarBrand("Nosocomiales UIMO", className="ms-3", href="https://www.instagram.com/dr.micobrio/")
+                    dbc.NavbarBrand("Nosocomiales UIMO", className="ms-3", href="/home")
                 ], width="auto", align="center"
                 ),
                 dbc.Col([
