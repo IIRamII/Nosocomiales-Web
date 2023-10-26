@@ -4,15 +4,16 @@ import dash_bootstrap_components as dbc
 
 dash.register_page(__name__, path="/home", name="Home", title="Home")
 
-cardsize_small = {"size":10, "offset":1}
-cardsize_large = {"size":4, "offset":1}
+cardsize_small = 10
+cardsize_large = 5
 
+card_y_sep = "g-4"
 
 layout = html.Div([
     dbc.Row([
         dbc.Col(
             [
-                html.H1("Infecciones Nosocomiales", style={"textAlign":"center"}),#Buscar como eliminar el borde inferior
+                html.H1("Infecciones Nosocomiales", style={"textAlign":"center"}, className="my-0"),#Buscar como eliminar el borde inferior
                 html.H4("en Nuevo León", style={"textAlign":"center"})
             ], className="g-3"
         )
@@ -20,36 +21,48 @@ layout = html.Div([
 
     dbc.Row([
         dbc.Col(
-            [
+            [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Mapa de Puntos", className="card-title")),
-                    dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ]) #Buscar como añadir marcos o bordes a la card
-            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large
+                    dbc.CardImg(src="/assets/map-transformed.jpeg", bottom=True, style={"opacity": 0.6}),
+                    dbc.CardImgOverlay(
+                        dbc.CardBody([
+                            html.H3("Casos por Clínica", className="card-title")
+                        ])
+                    )
+                ], color="primary", inverse=True),
+            href="/")
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
+            className=card_y_sep
         ),
         dbc.Col(
-            [
+            [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Mapa de Puntos", className="card-title")),
+                    dbc.CardBody(html.H3("Resistencia a Antibióticos", className="card-title")),
                     dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ])  # Buscar como añadir marcos o bordes a la card
-            ], xs=12, sm=12, md=12, lg=6, xl=6, xxl=6,
+                ],color="primary", inverse=True),
+                href="/resistencias")
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
+            className=card_y_sep
         ),
         dbc.Col(
-            [
+            [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Mapa de Puntos", className="card-title")),
+                    dbc.CardBody(html.H3("Datos Demográficos", className="card-title")),
                     dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ])  # Buscar como añadir marcos o bordes a la card
-            ], xs=12, sm=12, md=12, lg=6, xl=6, xxl=6
+                ]),
+                href="/masdatos")
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
+            className=card_y_sep
         ),
         dbc.Col(
-            [
+            [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Mapa de Puntos", className="card-title")),
+                    dbc.CardBody(html.H3("Casos por Estado y Municipio", className="card-title")),
                     dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ])  # Buscar como añadir marcos o bordes a la card
-            ], xs=12, sm=12, md=12, lg=6, xl=6, xxl=6
-        ),
-    ])
+                ]),
+                href="mapamexico")
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
+            className=card_y_sep
+        )
+    ], justify="evenly")
 ])
