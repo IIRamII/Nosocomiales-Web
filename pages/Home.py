@@ -2,7 +2,7 @@ from dash import html, dcc, callback, Input, Output
 import dash
 import dash_bootstrap_components as dbc
 
-dash.register_page(__name__, path="/home", name="Home", title="Home")
+dash.register_page(__name__, path="/", name="Home", title="Home")
 
 cardsize_small = 10
 cardsize_large = 5
@@ -30,16 +30,20 @@ layout = html.Div([
                         ])
                     )
                 ], color="primary", inverse=True),
-            href="/")
+            href="/mapapuntos")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
         ),
         dbc.Col(
             [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Resistencia a Antibióticos", className="card-title")),
-                    dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ],color="primary", inverse=True),
+                    dbc.CardImg(src="/assets/resistencias.jpg", bottom=True, style={"opacity": 0.6}),
+                    dbc.CardImgOverlay(
+                        dbc.CardBody([
+                            html.H3("Resistencia a Antibióticos", className="card-title")
+                        ])
+                    )
+                ], color="primary", inverse=True),
                 href="/resistencias")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
@@ -47,9 +51,13 @@ layout = html.Div([
         dbc.Col(
             [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Datos Demográficos", className="card-title")),
-                    dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ]),
+                    dbc.CardImg(src="/assets/demografia.png", bottom=True, style={"opacity": 0.6}),
+                    dbc.CardImgOverlay(
+                        dbc.CardBody([
+                            html.H3("Datos Demográficos", className="card-title")
+                        ])
+                    )
+                ], color="primary", inverse=True),
                 href="/masdatos")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
@@ -57,9 +65,13 @@ layout = html.Div([
         dbc.Col(
             [html.A(
                 dbc.Card([
-                    dbc.CardBody(html.H3("Casos por Estado y Municipio", className="card-title")),
-                    dbc.CardImg(src="/assets/Mapa.png", bottom=True)
-                ]),
+                    dbc.CardImg(src="/assets/mexico.jpg", bottom=True, style={"opacity": 0.6}),
+                    dbc.CardImgOverlay(
+                        dbc.CardBody([
+                            html.H3("Casos por Estado y Municipio", className="card-title")
+                        ])
+                    )
+                ], color="primary", inverse=True),
                 href="mapamexico")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
