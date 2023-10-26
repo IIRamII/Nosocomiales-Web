@@ -9,7 +9,7 @@ server = app.server
 
 #Sección de hyperlinks para cada pagina
 leNav = dbc.Nav([
-    dbc.NavItem(dbc.NavLink("Mapa de Puntos", href="/")),
+    dbc.NavItem(dbc.NavLink("Mapa de Puntos", href="/mapapuntos")),
     dbc.NavItem(dbc.NavLink("Resistencias", href="/resistencias")),
     dbc.NavItem(dbc.NavLink("Más datos", href="/masdatos")),
     dbc.NavItem(dbc.NavLink("Mapa México", href="/mapamexico"))
@@ -28,7 +28,7 @@ leNavbar = dbc.Navbar(
                     width="auto", align="center"
                 ),
                 dbc.Col([
-                    dbc.NavbarBrand("Nosocomiales UIMO", className="ms-3", href="/home")
+                    dbc.NavbarBrand("Nosocomiales UIMO", className="ms-3", href="/")
                 ], width="auto", align="center"
                 ),
                 dbc.Col([
@@ -38,7 +38,7 @@ leNavbar = dbc.Navbar(
                         is_open=False,
                         navbar=True
                     )
-                ], width="auto")
+                ], width="auto", className="g-0")
 
             ],
                 align="center", className="g-0"
