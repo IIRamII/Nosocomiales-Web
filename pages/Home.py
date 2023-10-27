@@ -72,7 +72,7 @@ layout = html.Div([
                         ])
                     )
                 ], color="primary", inverse=True),
-                href="mapamexico")
+                href="/mapamexico")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
         )
