@@ -4,7 +4,7 @@ import dash
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
-dash.register_page(__name__, path="/", name="Mapa de Puntos", title="Mapa de Puntos", )
+dash.register_page(__name__, path="/mapapuntos", name="Mapa de Puntos", title="Mapa de Puntos", )
 
 # MO x Fechas
 d_MOxF = pd.read_csv("https://raw.githubusercontent.com/IIRamII/NosocomialesMexico/main/data/MOxFechas_Map.csv")
