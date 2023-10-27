@@ -69,7 +69,7 @@ layout = html.Div([
                     },
                     id='Map-Slider-SA'
                 )
-            ]
+            ], id="slider-data", style={"display": "none"}
         )
     ])
 ])
@@ -105,22 +105,32 @@ def update_sex_graph(lugar, filtro, selected_month):
     Input('F-lugar', 'value'),
     Input('F-temp', 'value'),
     Input('Map-Slider-SA', 'value'))
-def update_sex_graph(lugar, filtro, selected_month):
+def update_age_graph(lugar, filtro, selected_month):
     if filtro == "Mes":
         filtered_Age = Res[Res.Mes == selected_month]
         if lugar == "Ambos":
-            fig_Age_Bar = px.violin(filtered_Age, y="Edad", color="Sexo", points="all")
-            return fig_Age_Bar
+            fig_Age_Violin = px.violin(filtered_Age, y="Edad", color="Sexo", points="all")
+            return fig_Age_Violin
         else:
             ffiltered_Age = filtered_Age[filtered_Age.Clínica == lugar]
-            fig_Age_Bar = px.violin(ffiltered_Age, y="Edad", color="Sexo", points="all")
-            return fig_Age_Bar
+            fig_Age_Violin = px.violin(ffiltered_Age, y="Edad", color="Sexo", points="all")
+            return fig_Age_Violin
 
     else:
         if lugar == "Ambos":
-            fig_Age_Bar = px.violin(Res, y="Edad", color="Sexo", points="all")
-            return fig_Age_Bar
+            fig_Age_Violin = px.violin(Res, y="Edad", color="Sexo", points="all")
+            return fig_Age_Violin
         else:
             filtered_Age = Res[Res.Clínica == lugar]
-            fig_Age_Bar = px.histogram(filtered_Age, x="Sexo", color="Sexo")
-            return fig_Age_Bar
+            fig_Age_Violin = px.violin(filtered_Age, y="Edad", color="Sexo", points="all")
+            return fig_Age_Violin
+
+
+@callback(
+    Output('slider-data', 'style'),
+    Input('F-temp', 'value'))
+def update_slider_test(selected_temp):
+    if selected_temp == "Mes":
+        return {"display": "block"}
+    else:
+        return {"display": "none"}
