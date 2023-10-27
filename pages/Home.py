@@ -2,7 +2,7 @@ from dash import html, dcc, callback, Input, Output
 import dash
 import dash_bootstrap_components as dbc
 
-dash.register_page(__name__, path="/", name="Home", title="Home")
+dash.register_page(__name__, path="/mapapuntos", name="Home", title="Home")
 
 cardsize_small = 10
 cardsize_large = 5
