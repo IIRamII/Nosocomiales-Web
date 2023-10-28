@@ -9,6 +9,7 @@ server = app.server
 
 #Sección de hyperlinks para cada pagina
 leNav = dbc.Nav([
+    dbc.NavItem(dbc.NavLink("Inicio", href="/")),
     dbc.NavItem(dbc.NavLink("Mapa de Puntos", href="/mapapuntos")),
     dbc.NavItem(dbc.NavLink("Resistencias", href="/resistencias")),
     dbc.NavItem(dbc.NavLink("Más datos", href="/masdatos")),
@@ -51,6 +52,32 @@ leNavbar = dbc.Navbar(
     dark=True,
 )
 
+footer = dbc.Navbar(
+    dbc.Container([
+        dbc.Row([
+            dbc.Col(
+                [
+                    html.A(className="bi bi-github", style={"font-size":"2rem","color":"white"},
+                           href="https://github.com/IIRamII/Nosocomiales-Web/tree/main")
+                ], width="auto"
+            ),
+            dbc.Col(
+                [
+                    html.A(className="bi bi-linkedin", style={"font-size":"2rem","color":"white"})
+                ], width="auto"
+            ),
+            dbc.Col(
+                [
+                    html.A(className="bi bi-instagram", style={"font-size":"2rem","color":"white"},
+                           href="https://www.instagram.com/dr.micobrio/")
+                ], width="auto"
+            ),
+        ], justify="evenly")
+    ], style={"display":"block"}),
+    color="primary",
+    dark=True
+)
+
 app.layout = dbc.Container([
 
     dbc.Row([leNavbar]),
@@ -62,6 +89,10 @@ app.layout = dbc.Container([
                     dash.page_container
                 ], xs=12, sm=12, md=12, lg=12, xl=12, xxl=12)
         ]
+    ),
+
+    dbc.Row(
+        [footer], className="mt-5"
     )
 ], fluid=True)
 
