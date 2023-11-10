@@ -4,75 +4,97 @@ from dash import Dash, html, dcc, dash_table, Input, Output, callback
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
-
 # Gráfica de Resistencias de MOs
 Res = pd.read_csv("https://raw.githubusercontent.com/IIRamII/NosocomialesMexico/main/data/Resistencias.csv")
 
 dash.register_page(
     __name__,
-    path='/masdatos',
-    title='Más datos',
-    name='Más datos'
+    path='/datos-demograficos',
+    title='UIMO - Datos demográficos',
+    name='Datos demográficos'
 )
 
+# Card sizes
+cardsize_small = 11
+cardsize_large = 6
+
 layout = html.Div([
-    dbc.Row([
-        dbc.Col(
-            [
-                html.H1(children="Sexo y Edad de los pacientes", style={'textAlign': 'center'})
-            ], width=12
-        ),
-        dbc.Col(
-            [
-                dcc.Graph(
-                    id="Sex-Graph"
-                )
-            ],xs=12, sm=12, md=12, lg=6, xl=6, xxl=6
-        ),
-        dbc.Col(
-            [
-                dcc.Graph(
-                    id="Age-Graph"
-                )
-            ],xs=12, sm=12, md=12, lg=6, xl=6, xxl=6
-        )
-    ]),
-    dbc.Row([
-        dbc.Col(
-            [
-                html.Label("Seleccione lugar de toma de muestra"),
-                dcc.RadioItems(["Clínica 25", "Hospital 28", "Ambos"], "Ambos",
-                               id="F-lugar")
-            ], width=6
-        ),
-        dbc.Col(
-            [
-                html.Label("Filtrar datos por"),
-                dcc.RadioItems(["Mes", "Año", "Todo"], "Todo",
-                               id="F-temp")
-            ], width=6
-        ),
-        dbc.Col(
-            [
-                html.Label("Seleccionar Mes"),
-                dcc.Slider(
-                    Res['Mes'].min(),
-                    Res['Mes'].max(),
-                    step=None,
-                    value=Res['Mes'].min(),
-                    marks={
-                        1: {"label": "Enero"},
-                        2: {"label": "Febrero"},
-                        3: {"label": "Marzo"},
-                        4: {"label": "Abril"},
-                        5: {"label": "Mayo"}
-                    },
-                    id='Map-Slider-SA'
-                )
-            ], id="slider-data", style={"display": "none"}
-        )
-    ])
+    # JUMBOTRON
+    dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.H1("Datos Demográficos", className="display-2",
+                        style={"color": "white", "background-color": "rgba(0,0,0,0.55)"}),
+            ], width="auto", className="px-5 py-1"),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.P("Datos demográficos de los pacientes con infecciones nosocomiales",
+                       className="lead", style={"color": "white", "background-color": "rgba(0,0,0,0.55)"})
+            ], width="auto", className="px-5 py-1")
+        ])
+    ], className="py-3", style={"background-image": "url(/assets/banner3.png)", "background-size": "cover"},
+        fluid=True),
+    # Content
+    dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.H4("Sexo de los pacientes", className="card-title", style={"color": "black"}),
+                        html.Hr(style={"border-color":"#446e9b"}),
+                        dcc.Graph(id="Sex-Graph")
+                    ], className="pb-0"),
+                ], color="primary", outline=True),
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large),
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.H4("Edades de los pacientes", className="card-title", style={"color": "black"}),
+                        html.Hr(style={"border-color": "#446e9b"}),
+                        dcc.Graph(id="Age-Graph")
+                    ], className="pb-0"),
+                ], color="primary", outline=True)
+            ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large)
+        ], justify="evenly", className="my-3"),
+        dbc.Row([
+            dbc.Col(
+                [
+                    html.Label("Seleccione lugar de toma de muestra"),
+                    dcc.RadioItems(["Clínica 25", "Hospital 28", "Ambos"], "Ambos",
+                                   id="F-lugar")
+                ], width=6
+            ),
+            dbc.Col(
+                [
+                    html.Label("Filtrar datos por"),
+                    dcc.RadioItems(["Mes", "Año", "Todo"], "Todo",
+                                   id="F-temp")
+                ], width=6
+            ),
+            dbc.Col(
+                [
+                    html.Label("Seleccionar Mes"),
+                    dcc.Slider(
+                        Res['Mes'].min(),
+                        Res['Mes'].max(),
+                        step=None,
+                        value=Res['Mes'].min(),
+                        marks={
+                            1: {"label": "Enero"},
+                            2: {"label": "Febrero"},
+                            3: {"label": "Marzo"},
+                            4: {"label": "Abril"},
+                            5: {"label": "Mayo"}
+                        },
+                        id='Map-Slider-SA'
+                    )
+                ], id="slider-data", style={"display": "none"}, className="pt-1"
+            )
+        ], justify="evenly")
+    ], fluid=True)
 ])
+
 
 @callback(
     Output('Sex-Graph', 'figure'),
