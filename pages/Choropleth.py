@@ -1,8 +1,9 @@
 import pandas as pd
 import dash
-from dash import Dash, html, dcc, dash_table, Input, Output, callback
+from dash import Dash, html, dcc, Input, Output, callback
 import plotly.express as px
 import requests
+import dash_bootstrap_components as dbc
 
 
 ##Set de datos de México
@@ -17,6 +18,8 @@ f_mx = px.choropleth(data_frame=d_m, geojson=mx_region, locations='Estado', feat
                      hover_name="Estado", hover_data=["Casos", "Defunciones"],
                      color='Casos', color_continuous_scale="Darkmint")
 f_mx.update_geos(showcountries=True, showcoastlines=True, showland=True, fitbounds="locations")
+f_mx.update_layout(margin={"r":0,"t":0,"l":0,"b":10})
+f_mx.update_traces(colorbar={"orientation":"h"})
 
 # MAPA NUEVO LEON
 #with open('municipal.json', 'r', encoding='utf-8') as f:
@@ -32,22 +35,59 @@ f_NL = px.choropleth(data_frame=d_NL, geojson=NLMap, locations='Municipio', feat
                      color='Casos', color_continuous_scale="Darkmint")
 f_NL.update_geos(showcountries=True, showcoastlines=True, showland=True, fitbounds="locations")
 
-dash.register_page(__name__, path="/mapamexico")
+#Card sizes
+cardsize_small = 11
+cardsize_large = 6
+
+dash.register_page(__name__, path="/casos-estado", title="UIMO - Casos por Estado", name="Casos por Estado")
 
 layout = html.Div(children=[
-    html.H1("Mapa Choropleth de México", style={'textAlign': 'center'}),
-
-    html.Div(children=[
-        html.H2(children="Casos por Estado", style={'textAlign': 'center'}),
-        dcc.Graph(
-            id="mapaMexico",
-            figure=f_mx),
-    ]),
-
-    html.Div(children=[
-        html.H2(children="Estado de Nuevo León", style={'textAlign': 'center'}),
-        dcc.Graph(
-            id="mapaNL",
-            figure=f_NL)
-    ])
+    # JUMBOTRON
+    dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.H1("Casos por Estado", className="display-2",
+                        style={"color": "white", "background-color": "rgba(0,0,0,0.55)"}),
+            ], width="auto", className="px-5 py-1"),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.P("Cantidad de casos de infecciones nosocomiales registrados en los estados de México y los "
+                       "municipios de Nuevo León",
+                       className="lead", style={"color": "white", "background-color": "rgba(0,0,0,0.55)"})
+            ], width="auto", className="px-5 py-1")
+        ])
+    ], className="py-3", style={"background-image": "url(/assets/banner4.png)", "background-size": "cover"},
+        fluid=True),
+    # Content
+    dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.H4("Casos en México", className="card-title", style={"color": "black"}),
+                        html.P("Por el momento solo contamos con casos de Nuevo León. Esperamos expandir nuestra base "
+                               "de datos en el futuro."),
+                        html.Hr(style={"border-color": "#446e9b"}),
+                        dcc.Graph(
+                            id="mapaMexico",
+                            figure=f_mx),
+                    ], className="pb-0"),
+                ], color="primary", outline=True)
+            ],width=11),
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.H4("Casos en Nuevo León", className="card-title", style={"color": "black"}),
+                        html.P("Por el momento solo contamos con casos de un municipio. Esperamos expandir nuestra base "
+                               "de datos en el futuro."),
+                        html.Hr(style={"border-color": "#446e9b"}),
+                        dcc.Graph(
+                            id="mapaNL",
+                            figure=f_NL)
+                    ], className="pb-0"),
+                ], color="primary", outline=True)
+            ], width=11, className="pt-3")
+        ], justify="evenly", className="my-3")
+    ], fluid=True)
 ])
