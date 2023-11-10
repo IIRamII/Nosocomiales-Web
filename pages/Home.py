@@ -63,7 +63,7 @@ layout = dbc.Container([
                         ])
                     )
                 ], color="primary", inverse=True),
-            href="/mapapuntos")
+            href="/casos-clinica")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
         ),
@@ -91,7 +91,7 @@ layout = dbc.Container([
                         ])
                     )
                 ], color="primary", inverse=True),
-                href="/masdatos")
+                href="/datos-demograficos")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
         ),
@@ -105,7 +105,7 @@ layout = dbc.Container([
                         ])
                     )
                 ], color="primary", inverse=True),
-                href="/mapamexico")
+                href="/casos-estado")
             ], xs=cardsize_small, sm=cardsize_small, md=cardsize_small, lg=cardsize_large, xl=cardsize_large, xxl=cardsize_large,
             className=card_y_sep
         )
